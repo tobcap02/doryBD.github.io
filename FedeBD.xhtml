@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Per Te</title>
+
+  <style type="text/css">
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    #countdown {
+      font-size: 3em;
+      letter-spacing: 0.12em;
+      margin-bottom: 40px;
+      text-shadow: 0 0 15px rgba(255,255,255,0.3);
+    }
+
+    #gift {
+      padding: 15px 55px;
+      font-size: 1.2em;
+      border-radius: 40px;
+      border: none;
+      background: rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.4);
+      cursor: not-allowed;
+      box-shadow: 0 0 20px rgba(255,255,255,0.15);
+      transition: all 0.6s ease;
+    }
+
+    #gift.enabled {
+      background: #ff5fa2;
+      color: #ffffff;
+      cursor: pointer;
+      box-shadow: 0 0 25px rgba(255,95,162,0.8);
+    }
+
+    #gift.enabled:hover {
+      transform: scale(1.05);
+    }
+
+    #photo {
+      display: none;
+      margin-top: 40px;
+    }
+
+    #photo img {
+      max-width: 90vw;
+      max-height: 70vh;
+      border-radius: 20px;
+      box-shadow: 0 0 40px rgba(255,255,255,0.4);
+      animation: fadeIn 1.8s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+  </style>
+
+  <script type="text/javascript">
+    // <![CDATA[
+    function startCountdown() {
+      var target = new Date();
+      target.setHours(24, 0, 0, 0);
+
+      var countdown = document.getElementById("countdown");
+      var gift = document.getElementById("gift");
+      var photo = document.getElementById("photo");
+
+      var unlocked = false;
+
+      setInterval(function () {
+        var now = new Date();
+        var diff = target - now;
+
+        if (diff <= 0 && !unlocked) {
+          unlocked = true;
+          countdown.innerHTML = "È mezzanotte ✨";
+          gift.className = "enabled";
+          gift.removeAttribute("disabled");
+
+          gift.onclick = function () {
+            photo.style.display = "block";
+            countdown.style.display = "none";
+            gift.style.display = "none";
+          };
+          return;
+        }
+
+        if (!unlocked) {
+          var h = Math.floor(diff / (1000 * 60 * 60));
+          var m = Math.floor((diff / (1000 * 60)) % 60);
+          var s = Math.floor((diff / 1000) % 60);
+
+          countdown.innerHTML =
+            (h < 10 ? "0" : "") + h + " : " +
+            (m < 10 ? "0" : "") + m + " : " +
+            (s < 10 ? "0" : "") + s;
+        }
+      }, 1000);
+    }
+    // ]]>
+  </script>
+</head>
+
+<body onload="startCountdown()">
+  <div class="container">
+    <div id="countdown">-- : -- : --</div>
+    <button id="gift" disabled="disabled">Regalo</button>
+
+    <div id="photo">
+      <img src="foto.png" alt="Buon Compleanno Amore Mio" />
+    </div>
+  </div>
+</body>
+</html>
