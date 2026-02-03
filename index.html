@@ -86,7 +86,7 @@
         var now = new Date();
         var diff = target - now;
 
-        if (diff <= 0 && !unlocked) {
+        if (!unlocked) {
           unlocked = true;
           countdown.innerHTML = "È mezzanotte ✨";
           gift.className = "enabled";
@@ -127,4 +127,5 @@
   </div>
 </body>
 </html>
+
 
